@@ -4,18 +4,19 @@ import java.util.Scanner;
 
 public class Gugudan {
 
-    static int[] getGugudanInputFromKeyboard() {
-        int ret[] = new int[2];
+    public int start;
+    public int end;
+
+    public void init() {
         Scanner s = new Scanner(System.in);
         System.out.println("시작단을 입력해 주세요");
-        ret[0] = s.nextInt();
+        this.start = s.nextInt();
         System.out.println("끝단을 입력해 주세요");
-        ret[1] = s.nextInt();
+        this.end = s.nextInt();
         s.close();
-        return ret;
     }
 
-    static void printGugudan(int num) {
+    private void printGugudan(int num) {
         System.out.println("=======" + num + " Dan ========" );
         for(int i = 1; i <= 9; i++) {
             System.out.printf("%d * %d = %d\t", num, i, num * i);
@@ -23,13 +24,16 @@ public class Gugudan {
         }
         System.out.println();
     }
-
-    public static void main(String[] args) {
-        
-        int[] darr = getGugudanInputFromKeyboard();
-
-        for (int i = darr[0]; i <= darr[1]; i++) {
+    
+    public void printAll() {
+        for(int i = this.start; i <= this.end; i++) {
             printGugudan(i);
         }
+    }
+
+    public static void main(String[] args) {
+        Gugudan gugu = new Gugudan();
+        gugu.init();
+        gugu.printAll();
     }
 }
