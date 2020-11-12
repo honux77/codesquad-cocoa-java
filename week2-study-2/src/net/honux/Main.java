@@ -16,14 +16,14 @@ public class Main {
     public static void main(String[] args) {
         //List로 선언을 하는 게 더 일반적
         //List <Point> l = new LinkedList<>();
-        LinkedList <Point> l = new LinkedList<>();
+        LinkedList<Point> l = new LinkedList<>();
 
         Random r = new Random();
         //insert
         for (int i = 0; i < 10; i++) {
             l.add(new Point(100 + (i % 5) * 20,
-                    r.nextInt(100),
-                    r.nextInt(100)));
+                    r.nextInt(3),
+                    r.nextInt(5)));
         }
 
         l.add(5, new Point(999, 999, 999));
@@ -56,12 +56,15 @@ public class Main {
         }
 
         System.out.println("정렬 3");
-        Collections.sort(l, new Comparator<Point>(){
+        Collections.sort(l, new Comparator<Point>() {
             @Override
             public int compare(Point o1, Point o2) {
                 return o2.y - o1.y;
             }
         });
+        for (int i = 0; i < l.size(); i++) {
+            System.out.println(i + ": " + l.get(i));
+        }
 
         System.out.println("정렬 4");
         Collections.sort(l, (Point p1, Point p2) -> {
@@ -88,7 +91,7 @@ public class Main {
             //LinkedList 전용 메소드 호출
             Point p = l.removeLast();
             System.out.println("size:" + l.size()
-                    +" " + p);
+                    + " " + p);
         }
 
     }
