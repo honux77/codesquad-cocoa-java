@@ -8,7 +8,7 @@ public class Point3D extends Point {
         this.z = z;
     }
 
-    // final 메소드를 상속받으면 에러입니다!
+    // final 메소드를 상속받으면 컴파일 에러가 납니다!
 //    @Override
 //    public void sayPos() {
 //        super.sayPos();

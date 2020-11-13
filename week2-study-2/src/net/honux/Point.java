@@ -16,8 +16,7 @@ public class Point implements Comparable{
     }
 
     public final void sayPos() {
-        System.out.println("나는"
-                + this.x +"에 있어요!");
+        System.out.println("나는" + this.x +"에 있어요!");
     }
 
     public static void say() {
