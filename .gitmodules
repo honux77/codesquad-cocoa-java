@@ -1,0 +1,3 @@
+[submodule "java-game-basic"]
+	path = java-game-basic
+	url = https://github.com/honux77/java-game-basic
