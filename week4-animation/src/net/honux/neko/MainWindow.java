@@ -7,13 +7,16 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class MainWindow extends JFrame {
+public class MainWindow extends JFrame implements Runnable {
 
     private final String TITLE = "Neko App";
     private final int SCALE = 2;
+    private final int GAP = 1000 / 4;
 
     private BufferedImage background;
     private Neko neko;
+    private Thread thread;
+    private long frame  = 0;
 
     /**
      * TODO:
@@ -25,6 +28,12 @@ public class MainWindow extends JFrame {
     public MainWindow() {
         initUI();
         initNeko();
+        initOthers();
+
+    }
+
+    private void initOthers() {
+        thread = new Thread(this);
     }
 
     private void initNeko() {
@@ -57,11 +66,33 @@ public class MainWindow extends JFrame {
         int y = getHeight() / 2;
         int w = neko.getStanding().getWidth();
         int h = neko.getStanding().getHeight();
-        g.drawImage(neko.getStanding(), x, y, x + w * 2, y + h * 2, 0, 0, w, h, this);
+        //g.drawImage(neko.getStanding(), x, y, x + w * 2, y + h * 2, 0, 0, w, h, this);
+        g.drawImage(neko.getSleepImage(frame), x, y, x + w * 2, y + h * 2, 0, 0, w, h, this);
+    }
+
+    public void start() {
+        thread.run();
     }
 
     public static void main(String[] args) {
-        JFrame mainWindow = new MainWindow();
+        MainWindow mainWindow = new MainWindow();
         mainWindow.setVisible(true);
+        mainWindow.start();
+    }
+
+
+
+    @Override
+    public void run() {
+        while (true) {
+            frame++;
+            try {
+                Thread.sleep(GAP);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            repaint();
+            System.out.println(frame);
+        }
     }
 }
