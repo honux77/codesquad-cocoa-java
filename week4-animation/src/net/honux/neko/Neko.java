@@ -7,47 +7,64 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Neko {
-    private List<BufferedImage> sleep;
-    private List<BufferedImage> left;
-    private List<BufferedImage> right;
-    private List<BufferedImage> up;
-    private List<BufferedImage> down;
+    public static final int W = 32;
+    public static final int H = 32;
 
-    public BufferedImage getStanding() {
-        return standing;
+    private Map<CatStatus, List<BufferedImage>> cats = new HashMap<>();
+    private CatStatus status;
+
+    public void setStatus(CatStatus status) {
+        this.status = status;
     }
 
-    private BufferedImage standing;
-
-
     public Neko() {
-        //init staind
-        standing = readImage(25);
-        //init sleep
+        for (var s: CatStatus.values()) {
+            cats.put(s, new ArrayList<>());
+        }
+        initStand();
+        initSleeping();
         initSleep();
+        initWakeUp();
+    }
+
+    private void initWakeUp() {
+        int[] nums = {31, 32};
+        addList(CatStatus.WAKE_UP, nums);
     }
 
     private void initSleep() {
-        sleep = new LinkedList<>();
-        int start = 26;
-        int end = 32;
-        int frame = 20;
-        for (int i = start; i <= end; i++) {
-            sleep.add(readImage(i));
-            frame += 20;
+        int[] nums = {29, 30};
+        addList(CatStatus.SLEEP, nums);
+    }
+
+    private void initStand() {
+        int[] nums = {25, 26, 27};
+        addList(CatStatus.STAND, nums);
+    }
+
+    private void initSleeping() {
+        int[] nums = {26, 27, 28, 29, 30};
+        for (var i:nums) {
+            cats.get(CatStatus.SLEEPING).add(readImage(i));
+        }
+
+    }
+
+    private void addList(CatStatus status, int[] nums) {
+        for (var i:nums) {
+            cats.get(status).add(readImage(i));
         }
     }
 
-    public BufferedImage getSleepImage(long frame) {
-        return getImage(frame, sleep);
-    }
-
-    private BufferedImage getImage(long frame, List<BufferedImage> cats) {
-        return cats.get((int) frame % cats.size());
+    public BufferedImage getImage(long frame) {
+        List<BufferedImage> catList = cats.get(status);
+        if (catList.isEmpty()) return null;
+        return catList.get((int)frame % catList.size());
     }
 
     private BufferedImage readImage(int num) {

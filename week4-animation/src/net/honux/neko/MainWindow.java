@@ -64,10 +64,11 @@ public class MainWindow extends JFrame implements Runnable {
         g.drawImage(background, 0, 0, this);
         int x = getWidth() / 2;
         int y = getHeight() / 2;
-        int w = neko.getStanding().getWidth();
-        int h = neko.getStanding().getHeight();
-        //g.drawImage(neko.getStanding(), x, y, x + w * 2, y + h * 2, 0, 0, w, h, this);
-        g.drawImage(neko.getSleepImage(frame), x, y, x + w * 2, y + h * 2, 0, 0, w, h, this);
+        int w = Neko.W;
+        int h = Neko.H;
+
+        neko.setStatus(CatStatus.SLEEPING);
+        g.drawImage(neko.getImage(frame), x, y, x + w * 2, y + h * 2, 0, 0, w, h, this);
     }
 
     public void start() {
