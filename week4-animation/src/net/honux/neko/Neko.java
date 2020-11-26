@@ -21,8 +21,8 @@ public class Neko {
      * @param idx 이미지 번호
      * @return 고양이 이미
      */
-    public BufferedImage getImage(int idx) {
-        return cats.get(idx);
+    public BufferedImage getImage(long frame) {
+        return cats.get((int)frame % cats.size());
     }
 
     private void loadImage() {
@@ -45,7 +45,6 @@ public class Neko {
             JOptionPane.showMessageDialog(new JFrame(), "Neko load error: " + e.getMessage(),
                     "Neko error", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
-        } finally {
             return null;
         }
     }

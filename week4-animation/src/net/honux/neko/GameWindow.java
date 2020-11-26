@@ -6,16 +6,19 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class GameWindow extends JFrame {
+public class GameWindow extends JFrame implements Runnable{
 
     private BufferedImage background;
     private Neko neko;
+    private final int GAP = 1000 / 4;
+    private long frame = 0;
+    private Thread thread;
 
     public GameWindow() {
         loadImage("./resources/bg.png");
-        initNeko();
         init();
-
+        initNeko();
+        thread = new Thread(this);
     }
 
     private void initNeko() {
@@ -42,17 +45,40 @@ public class GameWindow extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
-        add(background);
     }
 
     @Override
     public void paint(Graphics g) {
-        //g.drawImage(background, 0, 0, this);
-        g.drawImage(neko.getImage(0), 0, 0, this);
+        g.drawImage(background, 0, 0, this);
+        g.drawImage(neko.getImage((int)frame), 100, 100, this);
     }
 
     public static void main(String[] args) {
-        JFrame frame = new GameWindow();
+        GameWindow frame = new GameWindow();
         frame.setVisible(true);
+        frame.start();
+        System.out.println("Main Thread");
+    }
+
+    public void start() {
+        thread.start();
+    }
+    @Override
+    public void run() {
+        while(true) {
+            update();
+            try {
+                Thread.sleep(GAP);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    private void update() {
+        frame++;
+        System.out.println(frame);
+        repaint();
     }
 }
