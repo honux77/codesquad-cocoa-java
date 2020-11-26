@@ -42,13 +42,13 @@ public class GameWindow extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
+        add(background);
     }
 
     @Override
     public void paint(Graphics g) {
-        System.out.println("call");
-        g.drawImage(background, 0, 0, this);
-        g.drawImage(neko.getImage(0), 100, 100, null);
+        //g.drawImage(background, 0, 0, this);
+        g.drawImage(neko.getImage(0), 0, 0, this);
     }
 
     public static void main(String[] args) {
