@@ -17,9 +17,20 @@ public class Neko {
 
     private Map<CatStatus, List<BufferedImage>> cats = new HashMap<>();
     private CatStatus status;
+    private long lastFrame;
 
-    public void setStatus(CatStatus status) {
+    public void setStatus(CatStatus status, long frame) {
         this.status = status;
+        if (status == CatStatus.SLEEPING) {
+            lastFrame = frame;
+        }
+    }
+
+    public void update(long frame) {
+        System.out.println(status);
+        if (status == CatStatus.SLEEPING && frame > lastFrame + cats.get(status).size()) {
+            setStatus(CatStatus.SLEEP, frame);
+        }
     }
 
     public Neko() {

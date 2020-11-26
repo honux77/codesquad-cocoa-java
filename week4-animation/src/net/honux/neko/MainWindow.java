@@ -38,6 +38,7 @@ public class MainWindow extends JFrame implements Runnable {
 
     private void initNeko() {
         neko = new Neko();
+        neko.setStatus(CatStatus.SLEEPING, frame);
     }
 
     private void initUI() {
@@ -46,6 +47,8 @@ public class MainWindow extends JFrame implements Runnable {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
+
+
     }
 
     private void addBackground() {
@@ -67,7 +70,6 @@ public class MainWindow extends JFrame implements Runnable {
         int w = Neko.W;
         int h = Neko.H;
 
-        neko.setStatus(CatStatus.SLEEPING);
         g.drawImage(neko.getImage(frame), x, y, x + w * 2, y + h * 2, 0, 0, w, h, this);
     }
 
@@ -75,10 +77,15 @@ public class MainWindow extends JFrame implements Runnable {
         thread.run();
     }
 
+    public void update() {
+        neko.update(frame);
+    }
+
     public static void main(String[] args) {
         MainWindow mainWindow = new MainWindow();
         mainWindow.setVisible(true);
         mainWindow.start();
+
     }
 
 
@@ -92,6 +99,7 @@ public class MainWindow extends JFrame implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            update();
             repaint();
             System.out.println(frame);
         }
