@@ -10,18 +10,25 @@ import java.io.IOException;
 public class MainWindow extends JFrame {
 
     private final String TITLE = "Neko App";
+    private final int SCALE = 2;
 
     private BufferedImage background;
+    private Neko neko;
+
     /**
      * TODO:
      * 1 - initApp
      * 2 - Add Background
      * 3 - fix hard coded size
      * 4 - add Mouse Event
-     *
      */
     public MainWindow() {
         initUI();
+        initNeko();
+    }
+
+    private void initNeko() {
+        neko = new Neko();
     }
 
     private void initUI() {
@@ -45,7 +52,12 @@ public class MainWindow extends JFrame {
 
     @Override
     public void paint(Graphics g) {
-       g.drawImage(background,0, 0, this);
+        g.drawImage(background, 0, 0, this);
+        int x = getWidth() / 2;
+        int y = getHeight() / 2;
+        int w = neko.getStanding().getWidth();
+        int h = neko.getStanding().getHeight();
+        g.drawImage(neko.getStanding(), x, y, x + w * 2, y + h * 2, 0, 0, w, h, this);
     }
 
     public static void main(String[] args) {
