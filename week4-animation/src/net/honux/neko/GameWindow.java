@@ -9,10 +9,17 @@ import java.io.IOException;
 public class GameWindow extends JFrame {
 
     private BufferedImage background;
+    private Neko neko;
 
     public GameWindow() {
         loadImage("./resources/bg.png");
+        initNeko();
         init();
+
+    }
+
+    private void initNeko() {
+        neko = new Neko();
     }
 
     private void loadImage(String path) {
@@ -39,7 +46,9 @@ public class GameWindow extends JFrame {
 
     @Override
     public void paint(Graphics g) {
+        System.out.println("call");
         g.drawImage(background, 0, 0, this);
+        g.drawImage(neko.getImage(0), 100, 100, null);
     }
 
     public static void main(String[] args) {
