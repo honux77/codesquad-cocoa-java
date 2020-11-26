@@ -13,12 +13,22 @@ public class GameWindow extends JFrame implements Runnable{
     private final int GAP = 1000 / 4;
     private long frame = 0;
     private Thread thread;
+    private Input input;
+    private int scale = 3;
 
     public GameWindow() {
         loadImage("./resources/bg.png");
         init();
         initNeko();
         thread = new Thread(this);
+        addEvent();
+    }
+
+    private void addEvent() {
+        input = new Input();
+        addMouseListener(input);
+        addMouseMotionListener(input);
+
     }
 
     private void initNeko() {
@@ -50,7 +60,11 @@ public class GameWindow extends JFrame implements Runnable{
     @Override
     public void paint(Graphics g) {
         g.drawImage(background, 0, 0, this);
-        g.drawImage(neko.getImage((int)frame), 100, 100, this);
+        //g.drawImage(neko.getImage((int)frame), input.getX(), input.getY(), this);
+        BufferedImage c = neko.getImage(frame);
+        g.drawImage(c,
+                input.getX(), input.getY(), input.getX() + c.getWidth() * scale, input.getY() + c.getHeight() * scale,
+                0, 0, c.getWidth(), c.getHeight(), this);
     }
 
     public static void main(String[] args) {
