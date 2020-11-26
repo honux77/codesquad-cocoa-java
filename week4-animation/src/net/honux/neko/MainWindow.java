@@ -17,6 +17,7 @@ public class MainWindow extends JFrame implements Runnable {
     private Neko neko;
     private Thread thread;
     private long frame  = 0;
+    private Input input;
 
     /**
      * TODO:
@@ -29,7 +30,6 @@ public class MainWindow extends JFrame implements Runnable {
         initUI();
         initNeko();
         initOthers();
-
     }
 
     private void initOthers() {
@@ -45,10 +45,17 @@ public class MainWindow extends JFrame implements Runnable {
         setTitle(TITLE);
         addBackground();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        input = new Input(this);
+        addMouseListener(input);
+        addMouseMotionListener(input);
         setLocationRelativeTo(null);
         setResizable(false);
 
 
+    }
+
+    public Neko getNeko() {
+        return neko;
     }
 
     private void addBackground() {
@@ -103,5 +110,9 @@ public class MainWindow extends JFrame implements Runnable {
             repaint();
             System.out.println(frame);
         }
+    }
+
+    public long getFrame() {
+        return frame;
     }
 }

@@ -14,22 +14,33 @@ import java.util.Map;
 public class Neko {
     public static final int W = 32;
     public static final int H = 32;
+    public static final int WAIT = 8;
 
     private Map<CatStatus, List<BufferedImage>> cats = new HashMap<>();
     private CatStatus status;
     private long lastFrame;
+    private boolean noOp;
+
 
     public void setStatus(CatStatus status, long frame) {
         this.status = status;
-        if (status == CatStatus.SLEEPING) {
-            lastFrame = frame;
-        }
+        lastFrame = frame;
     }
+
+
 
     public void update(long frame) {
         System.out.println(status);
         if (status == CatStatus.SLEEPING && frame > lastFrame + cats.get(status).size()) {
             setStatus(CatStatus.SLEEP, frame);
+        }
+
+        if (status == CatStatus.WAKE_UP && frame > lastFrame + cats.get(status).size()) {
+            setStatus(CatStatus.STAND, frame);
+        }
+
+        if (status == CatStatus.STAND && frame > lastFrame + WAIT) {
+            setStatus(CatStatus.SLEEPING, frame);
         }
     }
 
@@ -59,7 +70,7 @@ public class Neko {
     }
 
     private void initSleeping() {
-        int[] nums = {26, 27, 28, 29, 30};
+        int[] nums = {26, 27, 28};
         for (var i:nums) {
             cats.get(CatStatus.SLEEPING).add(readImage(i));
         }
