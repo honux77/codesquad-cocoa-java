@@ -7,13 +7,24 @@ import java.awt.event.MouseMotionListener;
 public class Input implements MouseListener, MouseMotionListener {
 
     private MainWindow m;
+
+    private int mouseX;
+    private int mouseY;
+
     public Input(MainWindow m) {
         this.m = m;
     }
 
+    public int getMouseX() {
+        return mouseX;
+    }
+
+    public int getMouseY() {
+        return mouseY;
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
-        m.getNeko().setStatus(CatStatus.WAKE_UP, m.getFrame());
     }
 
     @Override
@@ -43,6 +54,7 @@ public class Input implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
+        mouseX = e.getX();
+        mouseY = e.getY();
     }
 }
