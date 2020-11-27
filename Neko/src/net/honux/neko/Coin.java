@@ -4,16 +4,25 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Coin {
+public class Coin extends GameObject{
 
-    List<BufferedImage> coins;
-
-    public Coin() {
-        coins = new ArrayList<>();
-
+    private final String NORMAL = "NORMAL";
+    public Coin(MainWindow w, int x, int y) {
+        super(w, w.DELAY);
+        status=NORMAL;
+        setPosition(x, y);
+    }
+    @Override
+    public void addStatusForImages() {
+        addStatus(NORMAL);
     }
 
-    public BufferedImage getImage(long frame) {
-        return coins.get((int) frame / MainWindow.DELAY % coins.size());
+    @Override
+    public void addStatusImages() {
+        setStatusImages(NORMAL, 1, 2, 3, 4);
+    }
+
+    @Override
+    public void update(int frame) {
     }
 }

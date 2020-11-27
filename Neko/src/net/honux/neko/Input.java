@@ -25,6 +25,7 @@ public class Input implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        m.addCoin(e.getX(), e.getY());
     }
 
     @Override

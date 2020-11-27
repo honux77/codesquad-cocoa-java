@@ -6,7 +6,7 @@ public class Neko extends GameObject {
 
     public Neko(MainWindow window, int delay) {
         super(window, delay);
-        setStatus(CatStatus.STAND.toString());
+        setStatus(CatStatus.STAND.toString(), 0);
     }
 
     //Neko class test
@@ -19,18 +19,53 @@ public class Neko extends GameObject {
 
     @Override
     public void addStatusForImages() {
-        for(var status: CatStatus.values()) {
+        for (var status : CatStatus.values()) {
             addStatus(status.toString());
         }
     }
 
     @Override
     public void addStatusImages() {
-        setStatusImages("STAND", 25, 26, 27, 28, 27);
+        setStatusImages(CatStatus.STAND.toString(), 25, 26);
+        setStatusImages(CatStatus.SLEEPY.toString(), 27, 28);
+        setStatusImages(CatStatus.SLEEP.toString(), 29, 30);
+        setStatusImages(CatStatus.WAKE_UP.toString(), 31, 32);
+        setStatusImages(CatStatus.TOP.toString(), 1, 2);
+
     }
 
     @Override
     public void update(int frame) {
+        x += dx;
+        y += dy;
+        if (checkStatus(CatStatus.STAND) && checkFrame(frame, getStatusImageSize(CatStatus.STAND.toString()) * 4)) {
+            setStatus(CatStatus.SLEEPY.toString(), frame);
+        }
+
+        if (checkStatus(CatStatus.SLEEPY) && checkFrame(frame, getStatusImageSize(CatStatus.SLEEPY.toString()))) {
+            setStatus(CatStatus.SLEEP.toString(), frame);
+        }
+
+        if (checkStatus(CatStatus.SLEEPY) && checkFrame(frame, getStatusImageSize(CatStatus.SLEEPY.toString()))) {
+            setStatus(CatStatus.SLEEP.toString(), frame);
+        }
+
+        if (checkStatus(CatStatus.SLEEP) && checkFrame(frame, getStatusImageSize(CatStatus.SLEEP.toString()) * 4)) {
+            setStatus(CatStatus.WAKE_UP.toString(), frame);
+        }
+
+        if (checkStatus(CatStatus.WAKE_UP) && checkFrame(frame, getStatusImageSize(CatStatus.WAKE_UP.toString()))) {
+            setStatus(CatStatus.STAND.toString(), frame);
+        }
+
         System.out.println(status);
+    }
+
+    private boolean checkFrame(int frame, int time) {
+        return frame > this.getLastFrame() + delay * time;
+    }
+
+    private boolean checkStatus(CatStatus status) {
+        return this.status == status.toString();
     }
 }

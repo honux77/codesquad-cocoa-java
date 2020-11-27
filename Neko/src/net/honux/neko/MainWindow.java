@@ -1,23 +1,26 @@
 package net.honux.neko;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.*;
 import java.awt.*;
 
 public class MainWindow extends JFrame implements Runnable {
 
     private final String TITLE = "Neko App";
-    private final int SCALE = 2;
+    public final static int SCALE = 2;
     public static final int GAP = 1000 / 60;
     public static final int DELAY = 60 / 2;
 
     private Neko neko;
+    private List<Coin> coins = new ArrayList<>();
     private int frame = 0;
     private Thread thread;
     private Input input;
     private Renderer renderer;
 
     public MainWindow() {
-        initNeko();
+        initObjects();
         initComponent();
         initUI();
         initOthers();
@@ -25,6 +28,10 @@ public class MainWindow extends JFrame implements Runnable {
 
     public Input getInput() {
         return input;
+    }
+
+    public List<Coin> getCoins() {
+        return coins;
     }
 
     private void initComponent() {
@@ -37,13 +44,13 @@ public class MainWindow extends JFrame implements Runnable {
         thread = new Thread(this);
     }
 
-    private void initNeko() {
+    private void initObjects() {
         neko = new Neko(this, DELAY);
     }
 
     private void initUI() {
         setTitle(TITLE);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         add(renderer, BorderLayout.CENTER);
         setSize(renderer.getSize());
@@ -51,6 +58,7 @@ public class MainWindow extends JFrame implements Runnable {
         addMouseMotionListener(input);
         setLocationRelativeTo(null);
         setResizable(false);
+        neko.setPosition(getWidth() / 2, getHeight() / 2);
 
     }
 
@@ -93,5 +101,9 @@ public class MainWindow extends JFrame implements Runnable {
             update();
             render();
         }
+    }
+
+    public void addCoin(int x, int y) {
+        coins.add(new Coin(this, x, y));
     }
 }

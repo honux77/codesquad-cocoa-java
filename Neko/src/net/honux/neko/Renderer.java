@@ -42,7 +42,21 @@ public class Renderer extends JPanel {
         int h = neko.getH();
         int x = neko.getX();
         int y= neko.getY();
-        g.drawImage(neko.getImage(window.getFrame()), x, y, x + w * 2, y + h * 2, 0, 0, w, h, this);
+        drawImageByScale(g, neko);
+        drawCoins(g);
+    }
+
+    private void drawImageByScale(Graphics g, GameObject go) {
+        int x = go.getX() - go.getW() * MainWindow.SCALE / 2;
+        int y = go.getY() - go.getH() * MainWindow.SCALE;
+        int w = go.getW();
+        int h = go.getH();
+        g.drawImage(go.getImage(window.getFrame()), x, y, x + w * MainWindow.SCALE, y + h * MainWindow.SCALE,
+                0, 0, w, h, window);
+    }
+
+    private void drawCoins(Graphics g) {
+        for(var coin: window.getCoins()) drawImageByScale(g, coin);
     }
 
     public void update() {

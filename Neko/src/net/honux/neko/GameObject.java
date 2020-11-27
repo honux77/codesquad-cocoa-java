@@ -13,12 +13,14 @@ import java.util.Map;
 public abstract class GameObject {
 
     private final MainWindow window;
-    private int x, y, w, h;
+    protected int w, h;
+    protected double x, y, dx, dy;
     private Map<Integer, BufferedImage> allImages = new HashMap<>();
     private Map<String, List<BufferedImage>> images = new HashMap<>();
     private List<String> allStatus = new ArrayList<>();
-    private int delay = 1;
+    protected int delay = 1;
 
+    private int lastFrame;
     protected String status;
 
     public abstract void addStatusForImages();
@@ -39,8 +41,13 @@ public abstract class GameObject {
         addStatusImages();
     }
 
-    public void setStatus(String status) {
+    public void setStatus(String status, int frame) {
         this.status = status;
+        this.lastFrame = frame;
+    }
+
+    public int getLastFrame() {
+        return lastFrame;
     }
 
     private void setWH() {
@@ -57,11 +64,20 @@ public abstract class GameObject {
     }
 
     public int getX() {
-        return x;
+        return (int) x;
     }
 
     public int getY() {
-        return y;
+        return (int) y;
+    }
+
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getStatusImageSize(String status) {
+        return images.get(status).size();
     }
 
     protected void addStatus(String... status) {
