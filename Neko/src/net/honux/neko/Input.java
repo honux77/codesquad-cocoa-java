@@ -6,25 +6,26 @@ import java.awt.event.MouseMotionListener;
 
 public class Input implements MouseListener, MouseMotionListener {
 
-    private int x;
-    private int y;
+    private MainWindow m;
 
-    public Input() {
-        this.x = 100;
-        this.y = 100;
+    private int mouseX;
+    private int mouseY;
+
+    public Input(MainWindow m) {
+        this.m = m;
     }
 
-    public int getX() {
-        return x;
+    public int getMouseX() {
+        return mouseX;
     }
 
-    public int getY() {
-        return y;
+    public int getMouseY() {
+        return mouseY;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        m.addCoin(e.getX(), e.getY());
     }
 
     @Override
@@ -54,8 +55,7 @@ public class Input implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        this.x = e.getX();
-        this.y = e.getY();
-        System.out.println(this.x + ": " + this.y);
+        mouseX = e.getX();
+        mouseY = e.getY();
     }
 }
