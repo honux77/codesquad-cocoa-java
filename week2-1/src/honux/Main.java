@@ -1,12 +1,20 @@
 package honux;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 //코코아 학생 아무나 뽑기
 public class Main {
-    public static List<String> createList() {
+    public static List<String> createList() throws FileNotFoundException {
         List cocoaList = new ArrayList<>();
+        File f = new File("user.csv");
+        Scanner s = new Scanner(f);
+        while(s.hasNext()) {
+            String name = s.next();
+            cocoaList.add(name);
+        }
+        s.close();
         return cocoaList;
     }
 
@@ -15,27 +23,20 @@ public class Main {
     }
 
     public static void printN(List<String>s, int n) {
-     for (int i = 0; i < n; i++) {
-         System.out.println(s.get(i));
+     for (int i = 1; i <= n; i++) {
+         System.out.println( i + ". " + s.get(i));
      }
     }
 
     public static int input(int m) {
         Scanner s = new Scanner(System.in);
-        System.out.print("몇 명 뽑을까요? (1 - " + m + " )");
+        System.out.print("몇 명 뽑을까요? (1 - " + m + ") ");
         int n = s.nextInt();
         s.close();
         return n;
     }
 
-    public static boolean fileTest() {
-        File f = new File("./user.csv");
-        return f.exists();
-    }
-
-    public static void main(String[] args) {
-        //System.out.println(fileTest());
-
+    public static void main(String[] args) throws FileNotFoundException {
         //학생 리스트(배열)을 만들고
         List<String> cocoaList = createList();
 
