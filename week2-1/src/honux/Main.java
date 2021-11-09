@@ -1,17 +1,12 @@
 package honux;
 
+import java.io.File;
 import java.util.*;
 
 //코코아 학생 아무나 뽑기
 public class Main {
     public static List<String> createList() {
         List cocoaList = new ArrayList<>();
-        cocoaList.add("얀");
-        cocoaList.add("땃쥐");
-        cocoaList.add("준");
-        cocoaList.add("필");
-        cocoaList.add("호눅스");
-        cocoaList.add("몽");
         return cocoaList;
     }
 
@@ -33,7 +28,14 @@ public class Main {
         return n;
     }
 
+    public static boolean fileTest() {
+        File f = new File("./user.csv");
+        return f.exists();
+    }
+
     public static void main(String[] args) {
+        //System.out.println(fileTest());
+
         //학생 리스트(배열)을 만들고
         List<String> cocoaList = createList();
 
