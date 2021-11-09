@@ -1,9 +1,6 @@
 package honux;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 //코코아 학생 아무나 뽑기
 public class Main {
@@ -27,12 +24,25 @@ public class Main {
          System.out.println(s.get(i));
      }
     }
+
+    public static int input(int m) {
+        Scanner s = new Scanner(System.in);
+        System.out.print("몇 명 뽑을까요? (1 - " + m + " )");
+        int n = s.nextInt();
+        s.close();
+        return n;
+    }
+
     public static void main(String[] args) {
-        final int n = 3;
         //학생 리스트(배열)을 만들고
         List<String> cocoaList = createList();
+
+        //키보드로 입력을 받는다.
+        final int n = input(cocoaList.size());
+
         //잘 섞어서
         shuffle(cocoaList);
+
         //그 중에 n 명을 뽑는다.
         printN(cocoaList, n);
     }
