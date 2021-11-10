@@ -6,7 +6,7 @@ import java.util.*;
 
 //코코아 학생 아무나 뽑기
 public class Main {
-    public static List<String> createList() throws FileNotFoundException {
+    public static List<String> createCoCoaMemberList() throws FileNotFoundException {
         List cocoaList = new ArrayList<>();
         File f = new File("user.csv");
         Scanner s = new Scanner(f);
@@ -38,7 +38,7 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
         //학생 리스트(배열)을 만들고
-        List<String> cocoaList = createList();
+        List<String> cocoaList = createCoCoaMemberList();
 
         //키보드로 입력을 받는다.
         final int n = input(cocoaList.size());
