@@ -18,6 +18,10 @@ public class Human {
         this.money = money;
     }
 
+    public void hi() {
+        System.out.println("I am " + this);
+    }
+
     public String getName() {
         return name;
     }
