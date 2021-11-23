@@ -13,11 +13,8 @@ public class Hello {
 
         Button b = new Button("Jung");
 
-        b.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("클릭 클릭");                
-            }
+        b.addActionListener((e) -> {
+            System.out.println("Wow!");
         });
 
         b.setSize(100, 30);
